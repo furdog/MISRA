@@ -1,7 +1,10 @@
+#!/bin/bash
+
 function misra_setup() {
-	# go to the same folder where script is running
+	# Go to the same folder where script is running
 	cd "$(dirname "$0")" || exit 1
 
+	# Clone cppcheck git repo (only addons/ folder)
 	git clone -n --depth=1 --filter=tree:0 \
 		https://github.com/danmar/cppcheck.git cppcheck &> /dev/null
 	cd cppcheck
@@ -24,6 +27,7 @@ function misra_setup() {
 		echo "Download complete: $DOWNLOAD_PATH"
 	fi
 }
+
 function misra_check() {
 	MISRA_PATH="$(dirname "$0")""/cppcheck/addons/"
 	TARGET="$1"
@@ -65,4 +69,3 @@ case "$1" in
 		exit 1
 		;;
 esac
-
