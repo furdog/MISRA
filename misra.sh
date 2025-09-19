@@ -1,5 +1,4 @@
 #!/bin/bash
-
 function misra_setup() {
 	# Go to the same folder where script is running
 	cd "$(dirname "$0")" || exit 1
@@ -32,6 +31,15 @@ function misra_check() {
 	MISRA_PATH="$(dirname "$0")""/cppcheck/addons/"
 	TARGET="$1"
 
+	# Initialize an empty string for the arguments
+	export INCLUDES=""
+
+	# Loop through each path in the INCLUDES variable
+	for path in $2; do
+		# Append the -I flag and the path to the arguments string
+		INCLUDES+="-I${path} "
+	done
+
 	function cleanup() {
 		# Remove garbage
 		rm "${TARGET}.ctu"*
@@ -42,7 +50,7 @@ function misra_check() {
 	trap cleanup EXIT
 
 	# Run check
-	cppcheck --dump --check-level=exhaustive --std=c89 "${TARGET}"
+	cppcheck --dump --check-level=exhaustive --std=c89 "${TARGET}" ${INCLUDES}
 	python "${MISRA_PATH}/misra.py" "${TARGET}.dump" \
 	  --rule-texts="${MISRA_PATH}/misra_c_2023__headlines_for_cppcheck.txt"
 
