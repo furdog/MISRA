@@ -42,7 +42,7 @@ function misra_check() {
 	trap cleanup EXIT
 
 	# Run check
-	cppcheck --dump --std=c89 "${TARGET}"
+	cppcheck --dump --check-level=exhaustive --std=c89 "${TARGET}"
 	python "${MISRA_PATH}/misra.py" "${TARGET}.dump" \
 	  --rule-texts="${MISRA_PATH}/misra_c_2023__headlines_for_cppcheck.txt"
 
