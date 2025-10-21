@@ -50,8 +50,7 @@ function misra_check() {
 	trap cleanup EXIT
 
 	# Run check
-	#--check-level=exhaustive #does not work on older cppcheck
-	cppcheck --dump --std=c89 "${TARGET}" ${INCLUDES}
+	cppcheck --dump --check-level=exhaustive --std=c89 "${TARGET}" ${INCLUDES}
 	python3 "${MISRA_PATH}/misra.py" "${TARGET}.dump" \
 	  --rule-texts="${MISRA_PATH}/misra_c_2023__headlines_for_cppcheck.txt"
 
