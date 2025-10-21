@@ -51,7 +51,7 @@ function misra_check() {
 
 	# Run check
 	cppcheck --dump --check-level=exhaustive --std=c89 "${TARGET}" ${INCLUDES}
-	python "${MISRA_PATH}/misra.py" "${TARGET}.dump" \
+	python3 "${MISRA_PATH}/misra.py" "${TARGET}.dump" \
 	  --rule-texts="${MISRA_PATH}/misra_c_2023__headlines_for_cppcheck.txt"
 
 	# Check if misra checks have passed
