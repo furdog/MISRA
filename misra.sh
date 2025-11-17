@@ -1,6 +1,6 @@
+#!/bin/bash
 set -e -x
 
-#!/bin/bash
 function misra_setup() {
 	# Go to the same folder where script is running
 	cd "$(dirname "$0")" || exit 1
