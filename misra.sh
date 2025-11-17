@@ -1,3 +1,5 @@
+set -e -x
+
 #!/bin/bash
 function misra_setup() {
 	# Go to the same folder where script is running
@@ -5,7 +7,8 @@ function misra_setup() {
 
 	# Clone cppcheck git repo (only addons/ folder)
 	git clone -n --depth=1 --filter=tree:0 \
-		https://github.com/danmar/cppcheck.git cppcheck &> /dev/null
+		https://github.com/danmar/cppcheck.git cppcheck &> /dev/null \
+		|| true
 	cd cppcheck
 	git sparse-checkout set --no-cone addons/
 	git checkout &> /dev/null
